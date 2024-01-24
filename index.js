@@ -59,10 +59,9 @@ function addGamesToPage(games) {
 
 }
 
-addGamesToPage(GAMES_JSON)
-
 // call the function we just defined using the correct variable
 // later, we'll call this function using a different list of games
+addGamesToPage(GAMES_JSON);
 
 
 /*************************************************************************************
@@ -104,21 +103,30 @@ function filterUnfundedOnly() {
     deleteChildElements(gamesContainer);
 
     // use filter() to get a list of games that have not yet met their goal
-
+    let unfunded = GAMES_JSON.filter((game) => {
+        if (game.pledged < game.goal) {
+            return game
+        }
+    })
 
     // use the function we previously created to add the unfunded games to the DOM
-
+    addGamesToPage(unfunded)
 }
+
 
 // show only games that are fully funded
 function filterFundedOnly() {
     deleteChildElements(gamesContainer);
 
     // use filter() to get a list of games that have met or exceeded their goal
-
+    let funded = GAMES_JSON.filter((game) => {
+        if (game.pledged > game.goal) {
+            return game
+        }
+    })
 
     // use the function we previously created to add unfunded games to the DOM
-
+    addGamesToPage(funded)
 }
 
 // show all games
@@ -126,6 +134,7 @@ function showAllGames() {
     deleteChildElements(gamesContainer);
 
     // add all games from the JSON data to the DOM
+    addGamesToPage(GAMES_JSON)
 
 }
 
@@ -135,6 +144,10 @@ const fundedBtn = document.getElementById("funded-btn");
 const allBtn = document.getElementById("all-btn");
 
 // add event listeners with the correct functions to each button
+
+unfundedBtn.addEventListener("click", filterUnfundedOnly);
+fundedBtn.addEventListener("click", filterFundedOnly);
+allBtn.addEventListener("click", showAllGames);
 
 
 /*************************************************************************************
@@ -146,12 +159,21 @@ const allBtn = document.getElementById("all-btn");
 const descriptionContainer = document.getElementById("description-container");
 
 // use filter or reduce to count the number of unfunded games
-
+let unfundedGames = GAMES_JSON.filter((game) => {
+    if (game.pledged < game.goal) {
+        return game
+    }
+})
+let unfundedCount = unfundedGames.length
 
 // create a string that explains the number of unfunded games using the ternary operator
-
+const displayStr = `A total of $100,000 has been raised for 4 games. Currently, ${unfundedCount > 1 ? `${unfundedCount} games`: `${unfundedCount} game`} remains unfunded. We need your help to fund these amazing games!`
 
 // create a new DOM element containing the template string and append it to the description container
+const descriptStr = document.createElement("p")
+descriptStr.innerHTML = displayStr
+console.log(descriptStr)
+descriptionContainer.appendChild(descriptStr)
 
 /************************************************************************************
  * Challenge 7: Select & display the top 2 games
