@@ -197,9 +197,11 @@ topGameCard.innerHTML = `
 <img class="game-img" src="${topTwoGames[0].img}" />
 <h class="game-name"><strong>${topTwoGames[0].name}</strong></h>;`;
 firstGameContainer.append(topGameCard)
+topGameCard.id = "firstGame"
 // do the same for the runner up item
 const runnerGameCard = document.createElement("div");
 runnerGameCard.classList.add("game-card")
+runnerGameCard.id = "secondGame"
 
 runnerGameCard.innerHTML = `
 <img class="game-img" src="${topTwoGames[1].img}" />
