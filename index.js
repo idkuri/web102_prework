@@ -28,7 +28,6 @@ const gamesContainer = document.getElementById("games-container");
 // create a function that adds all data from the games array to the page
 function addGamesToPage(games) {
     for (let game of games) {
-        console.log(game)
         const gameCard = document.createElement("div");
         gameCard.classList.add("game-card")
 
@@ -76,6 +75,7 @@ addGamesToPage(GAMES_JSON)
 const contributionsCard = document.getElementById("num-contributions");
 
 // use reduce() to count the number of total contributions by summing the backers
+contributionsCard.innerHTML = `${GAMES_JSON.reduce((bucket, game) => bucket + game.backers, 0).toLocaleString()}`
 
 
 // set the inner HTML using a template literal and toLocaleString to get a number with commas
@@ -83,12 +83,14 @@ const contributionsCard = document.getElementById("num-contributions");
 
 // grab the amount raised card, then use reduce() to find the total amount raised
 const raisedCard = document.getElementById("total-raised");
+raisedCard.innerHTML = `$${GAMES_JSON.reduce((bucket, game) => bucket + game.pledged, 0).toLocaleString()}`
 
 // set inner HTML using template literal
 
 
 // grab number of games card and set its inner HTML
 const gamesCard = document.getElementById("num-games");
+gamesCard.innerHTML = `${GAMES_JSON.reduce((bucket) => bucket + 1, 0).toLocaleString()}`
 
 
 /*************************************************************************************
