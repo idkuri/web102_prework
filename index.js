@@ -36,7 +36,6 @@ function addGamesToPage(games) {
         <h class="game-name"><strong>${game.name}</strong></h>
         <p>${game.description}</p>`;
 
-        console.timeLog(gameCard)
         gamesContainer.appendChild(gameCard)
     }
 
@@ -172,7 +171,6 @@ const displayStr = `A total of $${GAMES_JSON.reduce((bucket, game) => bucket + g
 // create a new DOM element containing the template string and append it to the description container
 const descriptStr = document.createElement("p")
 descriptStr.innerHTML = displayStr
-console.log(descriptStr)
 descriptionContainer.appendChild(descriptStr)
 
 /************************************************************************************
@@ -188,7 +186,22 @@ const sortedGames =  GAMES_JSON.sort( (item1, item2) => {
 });
 
 // use destructuring and the spread operator to grab the first and second games
+let topTwoGames = [sortedGames[0]]
+topTwoGames = [...topTwoGames, sortedGames[1]]
 
 // create a new element to hold the name of the top pledge game, then append it to the correct element
+const topGameCard = document.createElement("div");
+topGameCard.classList.add("game-card")
 
+topGameCard.innerHTML = `
+<img class="game-img" src="${topTwoGames[0].img}" />
+<h class="game-name"><strong>${topTwoGames[0].name}</strong></h>;`;
+firstGameContainer.append(topGameCard)
 // do the same for the runner up item
+const runnerGameCard = document.createElement("div");
+runnerGameCard.classList.add("game-card")
+
+runnerGameCard.innerHTML = `
+<img class="game-img" src="${topTwoGames[1].img}" />
+<h class="game-name"><strong>${topTwoGames[1].name}</strong></h>;`;
+secondGameContainer.append(runnerGameCard)
